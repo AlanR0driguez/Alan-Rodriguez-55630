@@ -1,0 +1,33 @@
+{% extends 'aplicacion/home2.html' %}
+
+{% block titulo %}
+<header class="masthead text-center">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 mx-auto">
+                <div class="login-container">
+                    <div class="white-rectangle"> <!-- Agregar un div para el rectángulo blanco -->
+                        <h1>Cambiar Imagen de Perfil</h1>
+                        <form action="{% url 'agregarAvatar' %}" method="post" enctype="multipart/form-data">
+                            {% csrf_token %}
+                            {{ form.as_p }}
+                            <button type="submit">Guardar Cambios</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+
+<style>
+    /* Estilo para el rectángulo blanco */
+    .white-rectangle {
+        background-color: white;
+        padding: 20px;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+    }
+</style>
+
+{% endblock titulo %}

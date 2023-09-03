@@ -1,0 +1,135 @@
+{% extends 'aplicacion/home2.html' %}
+
+{% block titulo %}
+{% load static %}
+<section class="page-section bg-primary" id="about" style="
+    background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('{% static 'dentistas.jpg' %}');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    text-align: center;
+    padding: 220px 0; /* Aumenta el espacio vertical */
+    position: relative; /* Agregamos una posición relativa para poder posicionar la barra de búsqueda */
+">
+    <div class="container px-4 px-lg-5">
+        <div class="row gx-4 gx-lg-5 justify-content-center">
+            <div class="col-lg-8">
+                <h1 class="text-white mb-4" style="font-size: 2.5rem;">COMENTARIOS</h1>
+                <div class="search-bar" style="position: absolute; bottom: 10px; left: 10px;">
+                    <input type="text" id="search-input" placeholder="Buscar comentarios..." class="form-control">
+                    <button onclick="searchComments()" class="btn btn-primary">Buscar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock titulo %}
+
+{% block abajo %}
+<section class="page-section bg-dentist" id="dentistas">
+    <style>
+        .bg-dentist {
+            background-color: #293f50;
+            padding: 170px;
+        }
+
+        .dentistas-container {
+            text-align: center;
+            margin-top: 10px;
+            padding: 20px; /* Cambié el padding para reducir el espacio */
+            border-radius: 10px; /* Cambié el border-radius para que sea más redondeado */
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            background-color: #ffffff;
+        }
+
+        .dentista {
+            display: flex;
+            flex-direction: column; /* Cambié la dirección del flexbox para separar la imagen y el comentario */
+            align-items: center;
+            margin-bottom: 10px;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            background-color: #f4f9fc;
+        }
+
+        .dentista-info {
+            font-family: Arial, sans-serif; /* Cambié la fuente a Arial */
+            color: #007bff; /* Cambié el color a un azul brillante */
+            margin-bottom: 5px; /* Agregué un margen inferior para separar el nombre de usuario y el comentario */
+            border-bottom: 1px solid #ccc; /* Línea divisoria entre el nombre de usuario y el comentario */
+            padding-bottom: 5px; /* Espacio entre el nombre de usuario y el comentario */
+            display: flex;
+            justify-content: space-between; /* Espacio entre el nombre de usuario y los botones */
+            align-items: center;
+        }
+
+        .dentista-buttons {
+            display: flex;
+            align-items: center;
+        }
+
+        .btn-dentista {
+            padding: 5px 10px; /* Espacio interno de los botones */
+            font-size: 14px; /* Tamaño de fuente reducido */
+            display: flex;
+            align-items: center;
+        }
+
+        .editar-icon,
+        .borrar-icon {
+            font-size: 18px; /* Tamaño de fuente para los iconos */
+            margin: 0 5px; /* Espacio entre el icono y el texto */
+        }
+    </style>
+
+    <div class="container px-4 px-lg-5 dentistas-container">
+        <div class="row gx-4 gx-lg-5 justify-content-center">
+            <div class="col-lg-8 text-center">
+                <ul class="list-unstyled text-dark mb-4" id="comments-list">
+                    {% for comentario in comentarios %}
+                    <li class="mb-3 dentista">
+                        <div class="dentista-info">
+                            <span>
+                                {{ comentario.autor.username }}
+                            </span>
+                            {% if comentario.autor == user %}
+                            <a href="{% url 'editar_comentario' comentario.pk %}" class="btn btn-primary btn-dentista editar-icon">
+                                Editar
+                            </a>
+                            <a href="{% url 'eliminar_comentario' comentario.pk %}" class="btn btn-danger btn-dentista borrar-icon">
+                                Borrar
+                            </a>
+                            {% endif %}
+                        </div>
+                        <div class="dentista-info">
+                            {{ comentario.texto }}
+                        </div>
+                    </li>
+                    {% empty %}
+                    <li class="no-dentistas">No tenemos comentarios en este momento.</li>
+                    {% endfor %}
+                </ul>
+            </div>
+        </div>
+    </div>
+</section>
+
+<script>
+    function searchComments() {
+        var input = document.getElementById("search-input").value.toLowerCase();
+        var comments = document.querySelectorAll(".dentista-info");
+        
+        for (var i = 0; i < comments.length; i++) {
+            var text = comments[i].textContent.toLowerCase();
+            var commentItem = comments[i].closest(".dentista");
+            
+            if (text.includes(input)) {
+                commentItem.style.display = "block";
+            } else {
+                commentItem.style.display = "none";
+            }
+        }
+    }
+</script>
+{% endblock abajo %}

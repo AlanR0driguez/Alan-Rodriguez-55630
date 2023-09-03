@@ -1,0 +1,28 @@
+{% extends 'aplicacion/login.html' %}
+
+
+{% block form %}
+<header class="masthead text-center">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 mx-auto">
+                <div class="login-container">
+                    <h2>Editar Perfil</h2>
+                    <form action="" method="post" enctype="multipart/form-data">
+                        {% csrf_token %}
+                        <table>
+                            {{ form.as_table }}
+                        </table>
+                        <button type="submit" class="btn btn-primary">Guardar Cambios</button>
+                    </form>
+                    <a href="{% url 'agregarAvatar' %}" class="btn btn-primary">Cambiar Avatar</a>
+                    <form action="{% url 'borrar_cuenta' %}" method="post">
+                        {% csrf_token %}
+                        <button type="submit" onclick="return confirm('¿Estás seguro/a de que deseas borrar tu cuenta?')">Borrar Cuenta</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+{% endblock form %}

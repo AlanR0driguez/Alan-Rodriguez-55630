@@ -1,0 +1,12 @@
+{% extends 'aplicacion/login.html' %}
+
+{% block form %}
+  <div class="container">
+    <h2>Editar Comentario</h2>
+    <form method="post">
+      {% csrf_token %}
+      {{ form.as_p }}
+      <button type="submit" class="btn btn-primary">Guardar Cambios</button>
+    </form>
+  </div>
+{% endblock form %}

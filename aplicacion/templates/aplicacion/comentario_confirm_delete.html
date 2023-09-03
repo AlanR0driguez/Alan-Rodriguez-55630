@@ -1,0 +1,25 @@
+{% extends 'aplicacion/login.html' %}
+
+{% block form %}
+<div class="container h-100">
+    <div class="row justify-content-center align-items-center h-100">
+        <div class="col-md-6">
+            <div class="card">
+                <div class="card-header bg-danger text-white">
+                    <h2 class="mb-0">Eliminar Comentario</h2>
+                </div>
+                <div class="card-body">
+                    <p class="lead">¿Estás seguro de que deseas eliminar este comentario?</p>
+                    <form method="post">
+                        {% csrf_token %}
+                        <div class="d-flex justify-content-between">
+                            <button type="submit" class="btn btn-danger">Eliminar</button>
+                            <a href="{% url 'lista_comentarios' %}" class="btn btn-secondary">Cancelar</a>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock form %}

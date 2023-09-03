@@ -1,0 +1,25 @@
+{% extends 'aplicacion/login.html' %}
+
+{% block form %}
+<header class="masthead text-center">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 mx-auto">
+                <div class="login-container">
+                    <h2>Agregar Dentista</h2>
+                    
+                    {% if request.user.is_staff %}
+                        <form action="" method="post">
+                        {% csrf_token %}
+                        <table>
+                                {{ form.as_table }}
+                        </table>
+                            <input type="submit" value="Enviar">
+                    </form>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+{% endblock form %}

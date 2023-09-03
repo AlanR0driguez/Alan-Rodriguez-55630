@@ -1,0 +1,32 @@
+{% extends 'aplicacion/home2.html' %}
+
+{% block titulo %}
+
+
+{% endblock titulo %}
+
+
+{% block personal %}
+<header class="masthead">
+    <div class="container px-4 px-lg-5 h-100">
+        <div class="row gx-4 gx-lg-5 h-100 align-items-center justify-content-center text-center">
+            <div class="col-lg-8 align-self-end">
+                <h1 class="text-white font-weight-bold">¡Hasta pronto!</h1>
+                <hr class="divider" />
+            </div>
+            <div class="col-lg-8 align-self-baseline">
+                <p class="text-white-75 mb-5">Gracias por su preferencia</p>
+                <div>
+                    <a class="btn btn-secondary btn-xl" href="{% url 'base' %}">Regresar</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+{% endblock personal %}
+
+
+{% block abajo%}
+
+
+{% endblock abajo%}

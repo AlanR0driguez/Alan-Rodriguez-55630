@@ -1,0 +1,88 @@
+{% extends 'aplicacion/home2.html' %}
+
+{% block titulo %}
+{% load static %}
+<section class="page-section bg-primary" id="about" style="
+    background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('{% static 'dentistas.jpg' %}');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    text-align: center;
+    padding: 220px 0; /* Aumenta el espacio vertical */
+">
+    <div class="container px-4 px-lg-5">
+        <div class="row gx-4 gx-lg-5 justify-content-center">
+            <div class="col-lg-8">
+                <h1 class="text-white mb-4" style="font-size: 2.5rem;">Aqui Se Encuentran Nuestros Mejores Profesionales</h1>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock titulo %}
+
+{% block abajo %}
+<section class="page-section bg-dentist" id="dentistas">
+    <style>
+        .bg-dentist {
+            background-color: #293f50;
+            padding: 150px;
+        }
+
+        .dentistas-container {
+            text-align: center;
+            margin-top: 10px;
+            padding: 50px;
+            border-radius: 30px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            background-color: #ffffff;
+        }
+
+        .dentista {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 10px;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            background-color: #f4f9fc;
+        }
+
+        .dentista-info {
+            font-family: 'Your Beautiful Font', sans-serif; /* Cambiar a la fuente deseada */
+            color: #2980b9;
+        }
+
+        .dentista-buttons {
+            display: flex;
+            align-items: center;
+        }
+
+        .btn-dentista {
+            margin-left: 10px;
+        }
+    </style>
+
+    <div class="container px-4 px-lg-5 dentistas-container">
+        <div class="row gx-4 gx-lg-5 justify-content-center">
+            <div class="col-lg-8 text-center">
+                <ul class="list-unstyled text-dark mb-4">
+                    {% for dentista in dentistas %}
+                    <li class="mb-3 dentista">
+                        <div class="dentista-info">{{ dentista.nombre }} - {{ dentista.especialidad }}</div>
+                        {% if user.is_staff %}
+                        <div class="dentista-buttons">
+                          <a href="{% url 'editarDentista' dentista.id %}" class="btn btn-primary">Editar</a>
+                          <a href="{% url 'eliminar_dentista' dentista.id %}" class="btn btn-danger">Eliminar</a>
+                        </div>
+                        {% endif %}
+                    </li>
+                    {% empty %}
+                    <li class="no-dentistas">No tenemos información sobre los dentistas en este momento.</li>
+                    {% endfor %}
+                </ul>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock abajo %}

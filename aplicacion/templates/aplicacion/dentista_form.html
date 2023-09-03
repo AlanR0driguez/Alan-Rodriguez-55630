@@ -1,0 +1,60 @@
+{% extends 'aplicacion/login.html' %}
+{% load static %}
+
+{% block styles %}
+<style>
+  body {
+    margin: 0;
+    padding: 0;
+    background-image: url("{% static 'dentistas.jpg' %}");
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center center;
+    height: 100vh;
+    position: relative;
+  }
+
+  .overlay {
+    position: absolute;
+    top: -50px; /* Ajusta el valor para mover la capa hacia arriba */
+    left: 0;
+    width: 100%;
+    height: 110%;
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: 1;
+  }
+
+  .login-container {
+    position: relative; /* Agrega esta línea para controlar la superposición */
+    z-index: 2;
+    background-color: white;
+    border-radius: 10px;
+    padding: 20px;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+    margin: 50px auto;
+    max-width: 400px;
+  }
+</style>
+{% endblock styles %}
+
+
+{% block form %}
+  <div class="overlay"></div>
+  {% if user.is_staff %}
+  <div class="login-container">
+    <h2>Agregar Dentista</h2>
+    <form method="post">
+      {% csrf_token %}
+      <div class="form-group">
+        {{ form.nombre.label_tag }}
+        {{ form.nombre }}
+      </div>
+      <div class="form-group">
+        {{ form.especialidad.label_tag }}
+        {{ form.especialidad }}
+      </div>
+      <button type="submit" class="btn btn-primary">Guardar Cambios</button>
+    </form>
+  </div>
+  {% endif %}
+{% endblock form %}
